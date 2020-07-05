@@ -1,0 +1,67 @@
+
+ This function helps in Adding a little GUI effect into your batch program...
+ It Prints simple MenuBar on cmd console at Top X=0 Y=0; Co-ordinates (Default)
+ You Need to provide a Text File, Containing The MenuBar Options And Their Sub
+ Options, (Which are starting By '$' Sign in the File.) [See Example @ Bottom]
+
+ After printing, it Generates a 'Check_MenuBar_Click.Bat' Script For Verifying
+ Whether, User has clicked On Any Menu Option or Not. 
+ You can use this file to Simply interacting with the MenuBar Easily. [See E.g]
+ 
+ IF 'X' is clicked, or Pressed ESC From Keyboard... then it will return 0 in 
+ the 'Errorlevel' Variable.
+
+ Syntax: call MenuBar [File] [Color]
+ Syntax: call MenuBar [help | /? | -h | -help]
+ Syntax: call MenuBar ver
+
+ Where:-
+ File		= Database File of the MenuBar [Contains Menu_options+Sub_Menu]
+ Color		= Color of the MenuBar [Hex Code: 0F,08,07 etc.]
+ ver		= Version of MenuBar function
+
+ Example:-
+ Call MenuBar Menu_Options.txt F0
+
+ Where, Menu_Options - File should be as Follows:
+ -------------------------------------------------------------------------------
+ # All Lines, after '#' Are Comments... And, after '$' Are Sub_Menu options.
+ Menu 1
+ $Menu 1 - Sub Menu 1
+ $Menu 1 - Sub Menu 2
+ $Menu 1 - Sub Menu 3
+ Menu 2
+ $Menu 2 - Sub Menu 1
+ $Menu 2 - Sub Menu 2
+ Menu 3
+ $Menu 3 - Sub Menu 1
+ # Quite simple... Isn't it?
+ -------------------------------------------------------------------------------
+ 
+ Demo:
+ A Short And Simple Batch Program would be as:
+ :Top
+ cls
+ call MenuBar File f0
+
+ :mouse
+ REM Enabling Mouse Interaction with Cmd... Using 'Batbox'
+ For /F "Delims=: Tokens=1,2,3" %%A in ('Batbox.exe /m') Do (
+	set Button=%%C
+	set X=%%A
+	set Y=%%B
+	)
+
+ Call Check_MenuBar_Click.bat %X% %Y% _Menu_Option _Sub_menu_option
+
+ Title %_Menu_Option%x%_Sub_menu_option%
+ Goto :Top
+
+ This version 1.0 of MenuBar function contains much more GUI Capabilities.
+ As it uses batbox.exe and calls it only once at the end of calculation...
+ For the most efficient output. This ver. uses GetInput By Aacini too. For the
+ Advanced Output on the console.
+
+ Created By 'Kvc' aka "Karanveer Chouhan"
+ Visit www.thebateam.org for more...
+ #TheBATeam
